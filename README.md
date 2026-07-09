@@ -1,4 +1,3 @@
-```markdown
 # Tier-1 Laptop Windows 11 Debloater
 
 A lightweight, hardware-safe Windows 11 debloating and optimization script specifically designed for laptops. Strips bloatware and telemetry while protecting OEM hardware controls, battery health, and SSD lifespan.
@@ -8,7 +7,7 @@ A lightweight, hardware-safe Windows 11 debloating and optimization script speci
 ### Smart Debloating
 - Removes Microsoft bloatware (Cortana, Xbox apps, Bing apps, etc.)
 - Removes third-party trialware (McAfee, Norton, Spotify, etc.)
-- **Preserves OEM apps** (MyASUS, Lenovo Vantage, Dell Power Manager) for battery and thermal control
+- Preserves OEM apps (MyASUS, Lenovo Vantage, Dell Power Manager) for battery and thermal control
 
 ### Privacy & Security
 - Disables Windows telemetry and tracking
@@ -53,6 +52,7 @@ A lightweight, hardware-safe Windows 11 debloating and optimization script speci
 ### Option 2: Run from PowerShell
 1. Right-click the Start button and select "Terminal (Admin)" or "PowerShell (Admin)".
 2. Paste the following command:
+
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mrcactus-afk/LaptopDebloat/main/Debloat.ps1'))
 ```
@@ -71,11 +71,11 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.We
 
 ## What Gets Protected
 
-- **OEM Control Centers** (MyASUS, Lenovo Vantage, Dell Power Manager, HP Command Center)
-- **Battery charging limits** (80% charge protection)
-- **Thermal management** and fan controls
-- **Display and brightness** management
-- **Audio drivers** and enhancements
+- OEM Control Centers (MyASUS, Lenovo Vantage, Dell Power Manager, HP Command Center)
+- Battery charging limits (80% charge protection)
+- Thermal management and fan controls
+- Display and brightness management
+- Audio drivers and enhancements
 
 ## Safety Features
 
@@ -88,7 +88,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.We
 
 **This script is currently in ALPHA.**
 
-While this script is designed to be safe and hardware-aware, running system-level modifications always carries inherent risks. The author is not responsible for any issues that may occur. 
+While this script is designed to be safe and hardware-aware, running system-level modifications always carries inherent risks. The author is not responsible for any issues that may occur.
 
 **Always create a backup or System Restore Point before running system modification scripts.**
 
@@ -113,4 +113,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - Chris Titus Tech for inspiration and the Windows utility
 - Sycnex for Windows10Debloater
 - The community for testing and feedback
-```
