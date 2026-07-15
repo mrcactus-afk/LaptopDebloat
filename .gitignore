@@ -1,0 +1,69 @@
+# ==================================
+# PowerShell
+# ==================================
+# Local PowerShell profiles and modules
+*.ps1.local
+*.psm1.local
+*.psd1.local
+
+# PowerShell execution logs
+*.log
+
+# ==================================
+# Windows System Files
+# ==================================
+# Thumbnail cache
+Thumbs.db
+ehthumbs.db
+
+# Folder config file (Windows Explorer)
+Desktop.ini
+
+# Recycle Bin
+$RECYCLE.BIN/
+
+# ==================================
+# IDE and Editor Files
+# ==================================
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.sln.docstates
+
+# Notepad++
+*.nppbak
+
+# ==================================
+# Temporary and Backup Files
+# ==================================
+# Backup files
+*.bak
+*.backup
+*.tmp
+*.temp
+*~
+
+# ==================================
+# OS-Specific Files
+# ==================================
+# macOS
+.DS_Store
+.AppleDouble
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.directory
+
+# ==================================
+# Logs and Debug
+# ==================================
+*.log
+logs/
+debug/
