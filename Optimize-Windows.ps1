@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════════
-#  TIER-1 LAPTOP WINDOWS 11 DEBLOATER (BETA BUILD v2.0)
+#  OPTIMIZE-WINDOWS.PS1 (TIER-1 LAPTOP WINDOWS 11 DEBLOATER)
 #  Designed to compete with CTT, Atlas, and ReviOS.
 #  Hardware-Safe: Protects OEM controls, Battery, and SSD.
 #  Now with AI/Copilot removal and Windows Update control!
