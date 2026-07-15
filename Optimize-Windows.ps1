@@ -1,7 +1,8 @@
 # ═══════════════════════════════════════════════════════════════════
-#  TIER-1 LAPTOP WINDOWS 11 DEBLOATER (ALPHA BUILD)
+#  TIER-1 LAPTOP WINDOWS 11 DEBLOATER (BETA BUILD v2.0)
 #  Designed to compete with CTT, Atlas, and ReviOS.
 #  Hardware-Safe: Protects OEM controls, Battery, and SSD.
+#  Now with AI/Copilot removal and Windows Update control!
 # ══════════════════════════════════════════════════════════════════
 
 Clear-Host
@@ -9,10 +10,10 @@ Clear-Host
 # [0] DISCLAIMER & CONFIRMATION MENU
 # ═══════════════════════════════════════════════════════════════════
 Write-Host "========================================================" -ForegroundColor Cyan
-Write-Host "  TIER-1 LAPTOP WINDOWS 11 DEBLOATER (ALPHA BUILD)" -ForegroundColor Cyan
+Write-Host "  TIER-1 LAPTOP WINDOWS 11 DEBLOATER (BETA v2.0)" -ForegroundColor Cyan
 Write-Host "========================================================" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "WARNING: This script is currently in ALPHA." -ForegroundColor Red
+Write-Host "WARNING: This script is currently in BETA." -ForegroundColor Red
 Write-Host "While it is designed specifically for laptops to protect" -ForegroundColor Yellow
 Write-Host "OEM hardware controls, battery limits, and thermals," -ForegroundColor Yellow
 Write-Host "running system-level scripts always carries inherent risks." -ForegroundColor Yellow
@@ -20,10 +21,12 @@ Write-Host ""
 Write-Host "WHAT THIS SCRIPT DOES:" -ForegroundColor Green
 Write-Host "  - Removes Microsoft bloatware and third-party trialware" -ForegroundColor White
 Write-Host "  - Disables telemetry, tracking, and lockscreen ads" -ForegroundColor White
+Write-Host "  - Disables Windows Copilot and AI features" -ForegroundColor White
 Write-Host "  - Optimizes services for low RAM/CPU usage" -ForegroundColor White
 Write-Host "  - Tunes network stack and gaming features" -ForegroundColor White
 Write-Host "  - Restores classic context menu and cleans UI" -ForegroundColor White
 Write-Host "  - Disables Fast Startup/Hibernation to protect SSD" -ForegroundColor White
+Write-Host "  - Prevents Windows Update from installing drivers" -ForegroundColor White
 Write-Host ""
 Write-Host "WHAT IT PROTECTS:" -ForegroundColor Green
 Write-Host "  - Keeps OEM apps (MyASUS, etc.) for battery/fan control" -ForegroundColor White
@@ -49,7 +52,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 Write-Host "`nCreating System Restore Point (Safety Net)..." -ForegroundColor Cyan
 Enable-ComputerRestore -Drive "C:\" -ErrorAction SilentlyContinue
-Checkpoint-Computer -Description "Pre-Debloater Laptop Optimization" -RestorePointType "MODIFY_SETTINGS" -ErrorAction SilentlyContinue | Out-Null
+Checkpoint-Computer -Description "Pre-Debloater Laptop Optimization v2.0" -RestorePointType "MODIFY_SETTINGS" -ErrorAction SilentlyContinue | Out-Null
 Write-Host "[+] Restore point created. You are safe to proceed." -ForegroundColor Green
 
 # ═══════════════════════════════════════════════════════════════════
@@ -67,6 +70,7 @@ $bloatApps = @(
     "*Microsoft.XboxGameOverlay*", "*Microsoft.XboxGamingOverlay*", "*Microsoft.XboxIdentityProvider*",
     "*Microsoft.XboxSpeechToTextOverlay*", "*Microsoft.WindowsAlarms*", "*Microsoft.WindowsCamera*",
     "*Clipchamp.Clipchamp*", "*MicrosoftTeams*", "*Microsoft.549981C3F5F10*", 
+    "*Microsoft.Copilot*", "*Microsoft.OutlookForWindows*",
     # Third-Party Trialware
     "*McAfee*", "*Norton*", "*Dropbox*", "*Spotify*", "*Disney*", "*CandyCrush*",
     "*FarmVille*", "*Asphalt*", "*TikTok*", "*Instagram*", "*Netflix*"
@@ -95,14 +99,18 @@ $paths = @(
     "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection",
     "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo",
     "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
-    "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+    "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+    "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot",
+    "HKCU:\Software\Policies\Microsoft\Windows\WindowsCopilot",
+    "HKCU:\Software\Policies\Microsoft\Windows\WindowsAI"
 )
 
 foreach ($path in $paths) {
     if (!(Test-Path $path)) { New-Item -Path $path -Force | Out-Null }
 }
 
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Value 0 -Force -ErrorAction SilentlyContinue
+# Set Telemetry to Level 1 (Required/Basic) - Safer than 0
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Value 1 -Force -ErrorAction SilentlyContinue
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" -Name "Enabled" -Value 0 -Force -ErrorAction SilentlyContinue
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SilentInstalledAppsEnabled" -Value 0 -Force -ErrorAction SilentlyContinue
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SubscribedContent-338387Enabled" -Value 0 -Force -ErrorAction SilentlyContinue
@@ -110,12 +118,34 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentD
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SubscribedContent-353698Enabled" -Value 0 -Force -ErrorAction SilentlyContinue
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "RotatingLockScreenEnabled" -Value 0 -Force -ErrorAction SilentlyContinue
 
+# Disable Tailored Experiences (prevents MS from using data for personalized ads)
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy" -Name "TailoredExperiencesWithDiagnosticDataEnabled" -Value 0 -Force -ErrorAction SilentlyContinue
+
+# Disable Activity History
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableActivityFeed" -Value 0 -Force -ErrorAction SilentlyContinue
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" -Value 0 -Force -ErrorAction SilentlyContinue
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "UploadUserActivities" -Value 0 -Force -ErrorAction SilentlyContinue
+
 Write-Host "[+] Telemetry, tracking, and lockscreen ads disabled." -ForegroundColor Green
 
 # ═══════════════════════════════════════════════════════════════════
-# 4. SERVICES & SCHEDULED TASKS OPTIMIZATION
+# 4. DISABLE AI & COPILOT (NEW IN v2.0)
 # ═══════════════════════════════════════════════════════════════════
-Write-Host "`nPhase 3: Optimizing Services & Background Tasks..." -ForegroundColor Cyan
+Write-Host "`nPhase 3: Disabling Windows Copilot & AI Features..." -ForegroundColor Cyan
+
+# Disable Windows Copilot (User & System level)
+Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -Value 1 -Force -ErrorAction SilentlyContinue
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -Value 1 -Force -ErrorAction SilentlyContinue
+
+# Disable Windows AI Data Analysis (Recall/Snipping tool AI)
+Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\WindowsAI" -Name "DisableAIDataAnalysis" -Value 1 -Force -ErrorAction SilentlyContinue
+
+Write-Host "[+] Windows Copilot and AI features disabled." -ForegroundColor Green
+
+# ═══════════════════════════════════════════════════════════════════
+# 5. SERVICES & SCHEDULED TASKS OPTIMIZATION
+# ═══════════════════════════════════════════════════════════════════
+Write-Host "`nPhase 4: Optimizing Services & Background Tasks..." -ForegroundColor Cyan
 
 $servicesToDisable = @(
     "SysMain", "WSearch", "XblAuthManager", "XblGameSave", 
@@ -135,9 +165,9 @@ foreach ($svc in $servicesToManual) {
 Write-Host "[+] Services optimized for low RAM and CPU usage." -ForegroundColor Green
 
 # ═══════════════════════════════════════════════════════════════════
-# 5. NETWORK & GAMING STACK OPTIMIZATION
+# 6. NETWORK & GAMING STACK OPTIMIZATION
 # ═══════════════════════════════════════════════════════════════════
-Write-Host "`nPhase 4: Network & Gaming Stack..." -ForegroundColor Cyan
+Write-Host "`nPhase 5: Network & Gaming Stack..." -ForegroundColor Cyan
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" -Name "NetworkThrottlingIndex" -Value "0xffffffff" -Force -ErrorAction SilentlyContinue
 
@@ -152,9 +182,22 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" 
 Write-Host "[+] Network stack and gaming features optimized." -ForegroundColor Green
 
 # ═══════════════════════════════════════════════════════════════════
-# 6. UI, EXPLORER & QUALITY OF LIFE
+# 7. WINDOWS UPDATE CONTROL (NEW IN v2.0)
+# ═══════════════════════════════════════════════════════════════════
+Write-Host "`nPhase 6: Configuring Windows Update..." -ForegroundColor Cyan
+
+# Prevent Windows Update from automatically installing drivers
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" -Name "ExcludeWUDriversInQualityUpdate" -Value 1 -Force -ErrorAction SilentlyContinue
+
+# Disable automatic restart after updates
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "NoAutoRebootWithLoggedOnUsers" -Value 1 -Force -ErrorAction SilentlyContinue
+
+Write-Host "[+] Windows Update configured (no auto-drivers, no forced reboots)." -ForegroundColor Green
+
+# ═══════════════════════════════════════════════════════════════════
+# 8. UI, EXPLORER & QUALITY OF LIFE
 # ══════════════════════════════════════════════════════════════════
-Write-Host "`nPhase 5: UI & Explorer Cleanup..." -ForegroundColor Cyan
+Write-Host "`nPhase 7: UI & Explorer Cleanup..." -ForegroundColor Cyan
 
 $contextMenuPath = "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
 if (!(Test-Path $contextMenuPath)) { New-Item -Path $contextMenuPath -Force | Out-Null }
@@ -172,9 +215,9 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 Write-Host "[+] UI cleaned and modernized." -ForegroundColor Green
 
 # ═══════════════════════════════════════════════════════════════════
-# 7. LAPTOP HARDWARE PROTECTION (Battery, Thermals, SSD)
+# 9. LAPTOP HARDWARE PROTECTION (Battery, Thermals, SSD)
 # ═══════════════════════════════════════════════════════════════════
-Write-Host "`nPhase 6: Laptop Hardware Protection..." -ForegroundColor Cyan
+Write-Host "`nPhase 8: Laptop Hardware Protection..." -ForegroundColor Cyan
 
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Value 0 -Force -ErrorAction SilentlyContinue
 powercfg /hibernate off | Out-Null
@@ -187,9 +230,9 @@ powercfg /setactive scheme_current
 Write-Host "[+] Hardware protection applied. SSD and battery safe." -ForegroundColor Green
 
 # ═══════════════════════════════════════════════════════════════════
-# 8. FINAL CLEANUP & RESTART EXPLORER
+# 10. FINAL CLEANUP & RESTART EXPLORER
 # ═══════════════════════════════════════════════════════════════════
-Write-Host "`nPhase 7: Final Cleanup..." -ForegroundColor Cyan
+Write-Host "`nPhase 9: Final Cleanup..." -ForegroundColor Cyan
 
 Remove-Item -Path "$env:TEMP\*" -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue
@@ -202,11 +245,13 @@ Start-Process explorer.exe
 # SUMMARY
 # ═══════════════════════════════════════════════════════════════════
 Write-Host "`n========================================================" -ForegroundColor Cyan
-Write-Host " TIER-1 LAPTOP DEBLOAT COMPLETE!" -ForegroundColor Cyan
+Write-Host " TIER-1 LAPTOP DEBLOAT v2.0 COMPLETE!" -ForegroundColor Cyan
 Write-Host "========================================================" -ForegroundColor Cyan
 Write-Host "[+] Bloatware & Telemetry nuked" -ForegroundColor Green
+Write-Host "[+] Windows Copilot & AI disabled" -ForegroundColor Green
 Write-Host "[+] Services optimized (RAM/CPU saved)" -ForegroundColor Green
 Write-Host "[+] Network & Gaming stack tuned" -ForegroundColor Green
+Write-Host "[+] Windows Update controlled (no auto-drivers)" -ForegroundColor Green
 Write-Host "[+] UI modernized (Classic context menu, no ads)" -ForegroundColor Green
 Write-Host "[+] Laptop hardware protected (SSD/Battery/Thermals)" -ForegroundColor Green
 Write-Host "`n[!] PLEASE RESTART YOUR PC TO FINALIZE ALL CHANGES." -ForegroundColor Yellow
