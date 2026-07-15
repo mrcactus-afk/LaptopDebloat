@@ -1,37 +1,74 @@
-# 🚀 Ultimate Windows 11 Optimization & Debloat Script
+# Tier-1 Laptop Windows 11 Debloater
 
-A lightweight, transparent, and safe PowerShell alternative to GUI tools like *Winhance*. This script removes bloatware, disables invasive telemetry and AI features, optimizes Windows Update, applies quality-of-life UI tweaks, and configures your system for maximum gaming performance—all without installing third-party software.
+A hardware-safe, laptop-optimized PowerShell script designed to remove bloatware, disable invasive telemetry and AI features, and optimize system performance. Unlike generic debloaters, this script is specifically engineered to protect OEM hardware controls, battery health, and SSD lifespan.
 
-## ⚠️ Disclaimer
-**Use at your own risk.** While this script is designed to be safe and non-destructive, it modifies system settings and the registry. **Always create a System Restore point** before running optimization scripts. 
+## Features
 
-## ✨ Features
-- **Safe Debloating:** Removes pre-installed Windows bloatware (Copilot, Edge shortcuts, Clipchamp, etc.) without breaking core system components like WebView2.
-- **Privacy & Telemetry:** Disables advertising IDs, tailored experiences, and optional diagnostic data while keeping *Required* telemetry intact to ensure Windows Update doesn't break.
-- **AI & Copilot Removal:** Completely disables Windows Copilot and AI data analysis features via Registry.
-- **Windows Update Control:** Stops Windows from automatically installing third-party drivers and prevents forced auto-reboots.
-- **UI & Explorer Tweaks:** Restores the classic Windows 10 right-click context menu, enables Dark Mode, hides the search/task view buttons, and shows file extensions.
-- **Gaming & Power Optimization:** Enables Game Mode, sets the power plan to High Performance, and disables USB selective suspend.
-- **Bonus DNS Config:** Includes an optimized `DNSJumper.ini` file tailored for low-latency gaming in Iran (Radar Game, Lag Zero, Electro).
+### Core Optimizations
+- Smart Debloating: Removes Microsoft bloatware and third-party trialware while preserving OEM apps (MyASUS, Lenovo Vantage, etc.) for battery and fan control.
+- Privacy and Telemetry: Disables advertising IDs, tailored experiences, and optional diagnostic data while keeping Required telemetry intact to ensure Windows Update stability.
+- AI and Copilot Removal: Completely disables Windows Copilot and AI data analysis features via the Registry.
+- Windows Update Control: Prevents Windows Update from automatically installing third-party drivers and stops forced auto-reboots.
+- Service Optimization: Disables unnecessary background services to reduce RAM and CPU usage.
+- Network and Gaming Stack: Tunes TCP settings, enables Game Mode, and optimizes network throttling for lower latency.
+- UI Cleanup: Restores the classic Windows 10 right-click context menu, hides Cortana and Task View, and shows file extensions.
 
-## 🛠️ How to Use
+### Laptop-Specific Protections
+- SSD Protection: Disables Fast Startup and Hibernation to reduce solid-state drive wear.
+- Battery and Thermal Safety: Forces the Balanced power plan to prevent thermal throttling and preserve battery health.
+- OEM App Preservation: Keeps manufacturer-specific applications for critical hardware control.
 
-### 1. Run the PowerShell Script
+## Known Limitations
+
+Please review these changes before running the script:
+- Start Menu Search is disabled (WSearch service is stopped). Use File Explorer search instead.
+- Xbox services are disabled. This script is not compatible with Xbox Game Pass.
+- Hibernation is disabled. Only Sleep and Shutdown modes are available.
+- Power plan is set to Balanced. This is optimized for battery life and thermals, not maximum gaming performance.
+
+## Installation and Usage
+
+### Method 1: Using the Batch File (Recommended)
+1. Download or clone this repository to your local machine.
+2. Right-click on Run.bat and select "Run as administrator".
+3. A command prompt will appear. Type Y and press Enter to confirm and proceed.
+4. Wait for the script to finish executing.
+5. Restart your PC to finalize all changes.
+
+### Method 2: Manual PowerShell Execution
 1. Download or clone this repository.
-2. Right-click on `Optimize-Windows.ps1` and select **"Run with PowerShell"**.
-   *(Alternatively, open PowerShell as Administrator and run: `.\Optimize-Windows.ps1`)*
-3. The script will automatically request Administrator privileges if needed.
-4. Follow the on-screen prompts. Restart your PC when finished.
+2. Right-click on Optimize-Windows.ps1 and select "Run with PowerShell".
+3. Alternatively, open PowerShell as Administrator and execute:
+   .\Optimize-Windows.ps1
+4. Type Y to confirm the disclaimer and proceed.
+5. Restart your PC when the script completes.
 
-### 2. Apply the Gaming DNS Config (Optional)
-1. Download [DNS Jumper](https://www.sordum.org/).
-2. Replace the default `DNSJumper.ini` file in the DNS Jumper folder with the `DNSJumper.ini` provided in this repo.
-3. Open DNS Jumper, click **Fastest DNS**, and apply the lowest ping Iranian server (usually Radar Game or Lag Zero).
+## Configuration: Gaming DNS
 
-## 📂 Repository Structure
-- `Optimize-Windows.ps1` - The main optimization script.
-- `DNSJumper.ini` - Custom DNS configuration for low-latency gaming.
-- `README.md` - This file.
+This repository includes an optimized DNSJumper.ini file tailored for low-latency gaming in Iran, featuring servers like Radar Game, Lag Zero, and Electro.
 
-## 🤝 Contributing
-Feel free to open an Issue or submit a Pull Request if you have suggestions for more safe and effective tweaks!
+To apply this configuration:
+1. Download DNS Jumper from the official Sordum website.
+2. Extract the DNS Jumper archive.
+3. Replace the default DNSJumper.ini file in the extracted folder with the DNSJumper.ini provided in this repository.
+4. Open DNS Jumper, click on Fastest DNS, and apply the server with the lowest ping.
+
+## Repository Structure
+
+- Optimize-Windows.ps1: The main laptop optimization and debloat script.
+- Run.bat: Batch file to automatically run the script with administrator privileges.
+- DNSJumper.ini: Custom DNS configuration for low-latency gaming.
+- README.md: This documentation file.
+
+## Contributing
+
+Contributions, issues, and feature requests are welcome. 
+1. Fork the repository.
+2. Create your feature branch (git checkout -b feature/YourFeature).
+3. Commit your changes (git commit -m 'Add some feature').
+4. Push to the branch (git push origin feature/YourFeature).
+5. Open a Pull Request.
+
+## License
+
+Distributed under the MIT License. See the LICENSE file for more information.
