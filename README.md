@@ -1,115 +1,37 @@
-# Tier-1 Laptop Windows 11 Debloater
+# 🚀 Ultimate Windows 11 Optimization & Debloat Script
 
-A lightweight, hardware-safe Windows 11 debloating and optimization script specifically designed for laptops. Strips bloatware and telemetry while protecting OEM hardware controls, battery health, and SSD lifespan.
+A lightweight, transparent, and safe PowerShell alternative to GUI tools like *Winhance*. This script removes bloatware, disables invasive telemetry and AI features, optimizes Windows Update, applies quality-of-life UI tweaks, and configures your system for maximum gaming performance—all without installing third-party software.
 
-## Features
+## ⚠️ Disclaimer
+**Use at your own risk.** While this script is designed to be safe and non-destructive, it modifies system settings and the registry. **Always create a System Restore point** before running optimization scripts. 
 
-### Smart Debloating
-- Removes Microsoft bloatware (Cortana, Xbox apps, Bing apps, etc.)
-- Removes third-party trialware (McAfee, Norton, Spotify, etc.)
-- Preserves OEM apps (MyASUS, Lenovo Vantage, Dell Power Manager) for battery and thermal control
+## ✨ Features
+- **Safe Debloating:** Removes pre-installed Windows bloatware (Copilot, Edge shortcuts, Clipchamp, etc.) without breaking core system components like WebView2.
+- **Privacy & Telemetry:** Disables advertising IDs, tailored experiences, and optional diagnostic data while keeping *Required* telemetry intact to ensure Windows Update doesn't break.
+- **AI & Copilot Removal:** Completely disables Windows Copilot and AI data analysis features via Registry.
+- **Windows Update Control:** Stops Windows from automatically installing third-party drivers and prevents forced auto-reboots.
+- **UI & Explorer Tweaks:** Restores the classic Windows 10 right-click context menu, enables Dark Mode, hides the search/task view buttons, and shows file extensions.
+- **Gaming & Power Optimization:** Enables Game Mode, sets the power plan to High Performance, and disables USB selective suspend.
+- **Bonus DNS Config:** Includes an optimized `DNSJumper.ini` file tailored for low-latency gaming in Iran (Radar Game, Lag Zero, Electro).
 
-### Privacy & Security
-- Disables Windows telemetry and tracking
-- Blocks lockscreen ads and Windows Spotlight
-- Disables advertising ID and content delivery manager
-- Removes diagnostic tracking services
+## 🛠️ How to Use
 
-### Performance Optimization
-- Optimizes services for low RAM/CPU usage
-- Disables Windows Search indexing (reduces SSD writes)
-- Disables SysMain/Superfetch
-- Tunes network stack for lower ping
-- Enables Game Mode and Hardware-Accelerated GPU Scheduling
+### 1. Run the PowerShell Script
+1. Download or clone this repository.
+2. Right-click on `Optimize-Windows.ps1` and select **"Run with PowerShell"**.
+   *(Alternatively, open PowerShell as Administrator and run: `.\Optimize-Windows.ps1`)*
+3. The script will automatically request Administrator privileges if needed.
+4. Follow the on-screen prompts. Restart your PC when finished.
 
-### UI Enhancements
-- Restores classic Windows 10 context menu
-- Hides search highlights and Cortana button
-- Shows file extensions and hidden files by default
-- Disables Start Menu recommendations
+### 2. Apply the Gaming DNS Config (Optional)
+1. Download [DNS Jumper](https://www.sordum.org/).
+2. Replace the default `DNSJumper.ini` file in the DNS Jumper folder with the `DNSJumper.ini` provided in this repo.
+3. Open DNS Jumper, click **Fastest DNS**, and apply the lowest ping Iranian server (usually Radar Game or Lag Zero).
 
-### Laptop Hardware Protection
-- Disables Fast Startup and Hibernation (protects SSD)
-- Forces Balanced power plan (prevents thermal throttling)
-- Disables USB selective suspend (prevents disconnects)
-- Optimized for battery life and thermals
+## 📂 Repository Structure
+- `Optimize-Windows.ps1` - The main optimization script.
+- `DNSJumper.ini` - Custom DNS configuration for low-latency gaming.
+- `README.md` - This file.
 
-## Requirements
-
-- Windows 11
-- Administrator privileges
-- Internet connection (for initial script download)
-
-## Installation
-
-### Option 1: Download Release (Recommended)
-1. Download the latest release from the [Releases](https://github.com/mrcactus-afk/LaptopDebloat/releases) page.
-2. Extract the ZIP file.
-3. Double-click `Run.bat`.
-4. Click "Yes" on the UAC prompt.
-5. Follow the on-screen instructions and restart your PC when finished.
-
-### Option 2: Run from PowerShell
-1. Right-click the Start button and select "Terminal (Admin)" or "PowerShell (Admin)".
-2. Paste the following command:
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mrcactus-afk/LaptopDebloat/main/Debloat.ps1'))
-```
-
-## What Gets Removed
-
-- Microsoft Bing apps (News, Weather, Finance)
-- Xbox apps and gaming overlay
-- Microsoft Teams (pre-installed version)
-- Clipchamp
-- Cortana
-- Solitaire Collection
-- Feedback Hub
-- Maps, Alarms, Your Phone
-- Third-party trialware (McAfee, Norton, Dropbox, Spotify, etc.)
-
-## What Gets Protected
-
-- OEM Control Centers (MyASUS, Lenovo Vantage, Dell Power Manager, HP Command Center)
-- Battery charging limits (80% charge protection)
-- Thermal management and fan controls
-- Display and brightness management
-- Audio drivers and enhancements
-
-## Safety Features
-
-- Creates automatic System Restore Point before making changes
-- Admin privilege check before execution
-- Laptop-specific optimizations (no desktop power plans)
-- Reversible changes (most tweaks can be undone via System Restore)
-
-## Disclaimer
-
-**This script is currently in ALPHA.**
-
-While this script is designed to be safe and hardware-aware, running system-level modifications always carries inherent risks. The author is not responsible for any issues that may occur.
-
-**Always create a backup or System Restore Point before running system modification scripts.**
-
-## Known Issues
-
-- Windows Updates may re-enable some telemetry services.
-- Some Microsoft Store apps may need to be reinstalled manually if removed.
-- Biometric services (Windows Hello) are disabled by default - re-enable in the script if you use fingerprint/face login.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## Acknowledgments
-
-- Chris Titus Tech for inspiration and the Windows utility
-- Sycnex for Windows10Debloater
-- The community for testing and feedback
+## 🤝 Contributing
+Feel free to open an Issue or submit a Pull Request if you have suggestions for more safe and effective tweaks!
