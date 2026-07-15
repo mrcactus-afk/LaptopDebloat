@@ -19,6 +19,6 @@ if '%errorlevel%' NEQ '0' (
     CD /D "%~dp0"
 
 :: Run the PowerShell script with Bypass policy
-PowerShell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Normal -File "%~dp0Debloat.ps1"
+PowerShell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Normal -File "%~dp0Optimize-Windows.ps1"
 
 pause
